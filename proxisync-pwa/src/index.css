@@ -1,0 +1,622 @@
+/* ==========================================================================
+   PROXISYNC "SIGNAL" DESIGN SYSTEM
+   Editorial, mobile-first, sensing-the-room identity.
+   Monochrome palette + ONE accent (Signal Lime #C6FF3D) + semantic red/amber.
+   Display font: Space Grotesk | Body: Plus Jakarta Sans | Data: JetBrains Mono
+   ========================================================================== */
+
+:root {
+  /* LIGHT THEME (Warm Off-White Default) */
+  --color-bg: #F4F1EA;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #EAE6DC;
+  --color-text-primary: #0B0B0C;
+  --color-text-secondary: #6B6964;
+  --color-border: #DCD7CA;
+  --color-border-subtle: #E8E4D8;
+
+  /* ONE ACCENT: Signal Lime */
+  --color-accent: #C6FF3D;
+  --color-accent-hover: #B5EE2C;
+  --color-accent-text: #0B0B0C;
+
+  /* SEMANTIC ONLY */
+  --color-danger: #E5484D;
+  --color-warning: #F59E0B;
+  --color-success: #30A46C;
+
+  /* DESKTOP BACKDROP */
+  --backdrop-desktop: #E5E1D6;
+  
+  --radius-card: 16px;
+  --radius-btn: 12px;
+  --min-touch-target: 48px;
+
+  --font-display: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.dark {
+  /* DARK THEME (Near-Black) */
+  --color-bg: #0B0B0C;
+  --color-surface: #141416;
+  --color-surface-subtle: #1C1C20;
+  --color-text-primary: #F4F1EA;
+  --color-text-secondary: #908E88;
+  --color-border: #26262B;
+  --color-border-subtle: #1C1C20;
+
+  --color-accent: #C6FF3D;
+  --color-accent-hover: #B5EE2C;
+  --color-accent-text: #0B0B0C;
+
+  --color-danger: #E5484D;
+  --color-warning: #F59E0B;
+  --color-success: #30A46C;
+
+  --backdrop-desktop: #050506;
+}
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--backdrop-desktop);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   DESKTOP PHONE-WIDTH COLUMN (Max 430px centered)
+   ========================================================================== */
+.app-backdrop {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--backdrop-desktop);
+}
+
+.phone-container {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.07);
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+@media (max-width: 440px) {
+  .phone-container {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+  }
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.app-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.icon-btn:active {
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   MAIN CONTENT SCROLL AREA
+   ========================================================================== */
+.phone-screen-content {
+  flex: 1;
+  padding: 22px 18px 96px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   BOTTOM NAVIGATION BAR (48px+ touch targets)
+   ========================================================================== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 430px;
+  height: 66px;
+  background-color: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.nav-item {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  gap: 3px;
+  position: relative;
+  min-width: var(--min-touch-target);
+  min-height: var(--min-touch-target);
+  transition: color 0.15s ease;
+}
+
+.nav-item.active {
+  color: var(--color-text-primary);
+}
+
+.nav-badge-dot {
+  position: absolute;
+  top: 12px;
+  right: calc(50% - 14px);
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-accent);
+  border: 1.5px solid var(--color-bg);
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   BUTTONS & FORM INPUTS (Min 48px touch targets)
+   ========================================================================== */
+.primary-btn {
+  background-color: var(--color-accent);
+  color: var(--color-accent-text);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-weight: 700;
+  min-height: var(--min-touch-target);
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.primary-btn:active {
+  transform: scale(0.98);
+}
+
+.secondary-btn {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-weight: 600;
+  min-height: var(--min-touch-target);
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.secondary-btn:hover {
+  background-color: var(--color-surface-subtle);
+}
+
+.text-input {
+  width: 100%;
+  min-height: var(--min-touch-target);
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.text-input:focus {
+  border-color: var(--color-text-primary);
+}
+
+/* ==========================================================================
+   EDITORIAL TYPOGRAPHY UTILITIES
+   ========================================================================== */
+.label-tracked {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.num-huge {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.num-data {
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   STUDENT HERO BLOCK: LIME ONLY WHEN OPEN, CALM GREY OTHERWISE
+   ========================================================================== */
+.hero-attendance-block {
+  border-radius: var(--radius-card);
+  padding: 22px;
+  margin-bottom: 24px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-calm-grey {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.hero-open-lime {
+  background-color: var(--color-accent);
+  color: #0B0B0C !important;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.hero-open-lime * {
+  color: #0B0B0C !important;
+}
+
+.mark-action-btn {
+  width: 100%;
+  min-height: 54px;
+  background-color: #0B0B0C;
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.mark-action-btn * {
+  color: #FFFFFF !important;
+}
+
+.mark-action-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   CUSTOM CONCENTRIC RING STREAK BADGE
+   ========================================================================== */
+.streak-ring-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.streak-ring-svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ==========================================================================
+   SUBJECT EDITORIAL CARDS (NO CARD CLUTTER, HAIRLINE DIVIDERS)
+   ========================================================================== */
+.subject-editorial-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 16px 18px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-surface-subtle);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   TIMELINE
+   ========================================================================== */
+.timeline-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.status-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+
+.status-pill.completed {
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+}
+
+.status-pill.active {
+  background-color: var(--color-accent);
+  color: #0B0B0C;
+}
+
+.status-pill.upcoming {
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   TEACHER LIVE BROADCAST STYLES
+   ========================================================================== */
+.live-broadcast-header {
+  background-color: var(--color-accent);
+  color: #0B0B0C;
+  border-radius: var(--radius-card);
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.token-dial-card {
+  background-color: #0B0B0C;
+  color: #FFFFFF;
+  border-radius: 12px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 90px;
+}
+
+.live-header-btn {
+  background-color: #0B0B0C;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  min-height: 40px;
+  transition: opacity 0.15s ease;
+}
+
+.live-header-btn.danger {
+  background-color: var(--color-danger);
+}
+
+.live-header-btn:active {
+  opacity: 0.8;
+}
+
+.attendee-stream-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+
+.pop-in-animation {
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: translateY(-8px) scale(0.97); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.manual-badge {
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   RADAR PULSE DOT
+   ========================================================================== */
+.live-broadcast-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #30A46C;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+/* ==========================================================================
+   CONCENTRIC RINGS ANIMATIONS
+   ========================================================================== */
+@keyframes ring-expand {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 0.4; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.ring-pulse-1 { animation: ring-expand 2s infinite ease-in-out; }
+.ring-pulse-2 { animation: ring-expand 2.5s infinite ease-in-out 0.2s; }
+.ring-pulse-3 { animation: ring-expand 3s infinite ease-in-out 0.4s; }
+
+/* ==========================================================================
+   MODAL & DEMO OVERRIDE PANEL
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal-content {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 22px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.toggle-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #0B0B0C;
+}
+
+/* ==========================================================================
+   REPORTS TABLE
+   ========================================================================== */
+.reports-table-container {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background-color: var(--color-surface);
+}
+
+.editorial-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.editorial-table th {
+  padding: 10px 14px;
+  font-size: 0.68rem;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface-subtle);
+  font-family: var(--font-mono);
+}
+
+.editorial-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.editorial-table tr.defaulter-row {
+  background-color: rgba(229, 72, 77, 0.05);
+}
+
+/* COLLAPSIBLE DETAILS FOR TECHNICAL JARGON (PDF specification) */
+details.telemetry-details {
+  background-color: var(--color-surface-subtle);
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  margin: 16px 0;
+  font-size: 0.78rem;
+}
+
+details.telemetry-details summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  outline: none;
+}
